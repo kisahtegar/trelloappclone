@@ -1,0 +1,8 @@
+class: ListBoard
+table: listboard
+fields: 
+  boardId: int, parent=board
+  userId: int, parent=user
+  name: String
+  archived: bool?
+  cards: List<Card>?, api

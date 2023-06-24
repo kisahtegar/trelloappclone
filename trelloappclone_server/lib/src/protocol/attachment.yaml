@@ -1,0 +1,6 @@
+class: Attachment
+table: attachment
+fields:
+  userId: int, parent=user
+  cardId: int, parent=card
+  attachment: String

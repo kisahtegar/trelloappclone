@@ -1,0 +1,9 @@
+class: Workspace
+table: workspace
+fields: 
+  userId: int, parent=user
+  name: String
+  handle: String
+  description: String
+  visibility: String
+  members: List<Member>?, api
