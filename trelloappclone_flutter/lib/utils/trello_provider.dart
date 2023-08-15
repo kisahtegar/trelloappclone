@@ -16,6 +16,12 @@ class TrelloProvider extends ChangeNotifier {
   String _selectedBackground = backgrounds[0];
   String get selectedBackground => _selectedBackground;
 
+  List<ListBoard> _lstbrd = [];
+  List<ListBoard> get lstbrd => _lstbrd;
+
+  late Board _brd;
+  Board get brd => _brd;
+
   void setUser(User user) {
     _user = user;
     notifyListeners();
@@ -33,6 +39,16 @@ class TrelloProvider extends ChangeNotifier {
 
   void setSelectedBg(String selectedBackground) {
     _selectedBackground = selectedBackground;
+    notifyListeners();
+  }
+
+  void setListBoard(List<ListBoard> lstbrd) {
+    _lstbrd = lstbrd;
+    notifyListeners();
+  }
+
+  void setSelectedBoard(Board brd) {
+    _brd = brd;
     notifyListeners();
   }
 }

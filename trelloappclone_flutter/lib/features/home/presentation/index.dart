@@ -2,7 +2,6 @@ import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:trelloappclone_client/trelloappclone_client.dart';
-import 'package:trelloappclone_flutter/utils/config.dart';
 
 import '../../../utils/color.dart';
 import '../../../utils/service.dart';
