@@ -8,10 +8,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
-class Card extends _i1.SerializableEntity {
-  Card({
+class Cardlist extends _i1.SerializableEntity {
+  Cardlist({
     this.id,
-    required this.listboardId,
+    required this.listId,
     required this.userId,
     required this.name,
     this.description,
@@ -23,14 +23,14 @@ class Card extends _i1.SerializableEntity {
     this.comments,
   });
 
-  factory Card.fromJson(
+  factory Cardlist.fromJson(
     Map<String, dynamic> jsonSerialization,
     _i1.SerializationManager serializationManager,
   ) {
-    return Card(
+    return Cardlist(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      listboardId: serializationManager
-          .deserialize<int>(jsonSerialization['listboardId']),
+      listId:
+          serializationManager.deserialize<int>(jsonSerialization['listId']),
       userId:
           serializationManager.deserialize<int>(jsonSerialization['userId']),
       name: serializationManager.deserialize<String>(jsonSerialization['name']),
@@ -56,7 +56,7 @@ class Card extends _i1.SerializableEntity {
   /// the id will be null.
   int? id;
 
-  int listboardId;
+  int listId;
 
   int userId;
 
@@ -80,7 +80,7 @@ class Card extends _i1.SerializableEntity {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'listboardId': listboardId,
+      'listId': listId,
       'userId': userId,
       'name': name,
       'description': description,

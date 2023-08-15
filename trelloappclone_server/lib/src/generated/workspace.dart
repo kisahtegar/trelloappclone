@@ -14,7 +14,6 @@ class Workspace extends _i1.TableRow {
     int? id,
     required this.userId,
     required this.name,
-    required this.handle,
     required this.description,
     required this.visibility,
     this.members,
@@ -29,8 +28,6 @@ class Workspace extends _i1.TableRow {
       userId:
           serializationManager.deserialize<int>(jsonSerialization['userId']),
       name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      handle:
-          serializationManager.deserialize<String>(jsonSerialization['handle']),
       description: serializationManager
           .deserialize<String>(jsonSerialization['description']),
       visibility: serializationManager
@@ -46,8 +43,6 @@ class Workspace extends _i1.TableRow {
 
   String name;
 
-  String handle;
-
   String description;
 
   String visibility;
@@ -62,7 +57,6 @@ class Workspace extends _i1.TableRow {
       'id': id,
       'userId': userId,
       'name': name,
-      'handle': handle,
       'description': description,
       'visibility': visibility,
       'members': members,
@@ -75,7 +69,6 @@ class Workspace extends _i1.TableRow {
       'id': id,
       'userId': userId,
       'name': name,
-      'handle': handle,
       'description': description,
       'visibility': visibility,
     };
@@ -87,7 +80,6 @@ class Workspace extends _i1.TableRow {
       'id': id,
       'userId': userId,
       'name': name,
-      'handle': handle,
       'description': description,
       'visibility': visibility,
       'members': members,
@@ -108,9 +100,6 @@ class Workspace extends _i1.TableRow {
         return;
       case 'name':
         name = value;
-        return;
-      case 'handle':
-        handle = value;
         return;
       case 'description':
         description = value;
@@ -246,8 +235,6 @@ class WorkspaceTable extends _i1.Table {
 
   final name = _i1.ColumnString('name');
 
-  final handle = _i1.ColumnString('handle');
-
   final description = _i1.ColumnString('description');
 
   final visibility = _i1.ColumnString('visibility');
@@ -257,7 +244,6 @@ class WorkspaceTable extends _i1.Table {
         id,
         userId,
         name,
-        handle,
         description,
         visibility,
       ];

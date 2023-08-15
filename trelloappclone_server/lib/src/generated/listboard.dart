@@ -33,7 +33,7 @@ class ListBoard extends _i1.TableRow {
       archived: serializationManager
           .deserialize<bool?>(jsonSerialization['archived']),
       cards: serializationManager
-          .deserialize<List<_i2.Card>?>(jsonSerialization['cards']),
+          .deserialize<List<_i2.Cardlist>?>(jsonSerialization['cards']),
     );
   }
 
@@ -47,7 +47,7 @@ class ListBoard extends _i1.TableRow {
 
   bool? archived;
 
-  List<_i2.Card>? cards;
+  List<_i2.Cardlist>? cards;
 
   @override
   String get tableName => 'listboard';

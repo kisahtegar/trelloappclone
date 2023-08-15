@@ -8,10 +8,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 
-class Card extends _i1.TableRow {
-  Card({
+class Cardlist extends _i1.TableRow {
+  Cardlist({
     int? id,
-    required this.listboardId,
+    required this.listId,
     required this.userId,
     required this.name,
     this.description,
@@ -23,14 +23,14 @@ class Card extends _i1.TableRow {
     this.comments,
   }) : super(id);
 
-  factory Card.fromJson(
+  factory Cardlist.fromJson(
     Map<String, dynamic> jsonSerialization,
     _i1.SerializationManager serializationManager,
   ) {
-    return Card(
+    return Cardlist(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      listboardId: serializationManager
-          .deserialize<int>(jsonSerialization['listboardId']),
+      listId:
+          serializationManager.deserialize<int>(jsonSerialization['listId']),
       userId:
           serializationManager.deserialize<int>(jsonSerialization['userId']),
       name: serializationManager.deserialize<String>(jsonSerialization['name']),
@@ -51,9 +51,9 @@ class Card extends _i1.TableRow {
     );
   }
 
-  static final t = CardTable();
+  static final t = CardlistTable();
 
-  int listboardId;
+  int listId;
 
   int userId;
 
@@ -79,7 +79,7 @@ class Card extends _i1.TableRow {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'listboardId': listboardId,
+      'listId': listId,
       'userId': userId,
       'name': name,
       'description': description,
@@ -96,7 +96,7 @@ class Card extends _i1.TableRow {
   Map<String, dynamic> toJsonForDatabase() {
     return {
       'id': id,
-      'listboardId': listboardId,
+      'listId': listId,
       'userId': userId,
       'name': name,
       'description': description,
@@ -113,7 +113,7 @@ class Card extends _i1.TableRow {
   Map<String, dynamic> allToJson() {
     return {
       'id': id,
-      'listboardId': listboardId,
+      'listId': listId,
       'userId': userId,
       'name': name,
       'description': description,
@@ -135,8 +135,8 @@ class Card extends _i1.TableRow {
       case 'id':
         id = value;
         return;
-      case 'listboardId':
-        listboardId = value;
+      case 'listId':
+        listId = value;
         return;
       case 'userId':
         userId = value;
@@ -170,9 +170,9 @@ class Card extends _i1.TableRow {
     }
   }
 
-  static Future<List<Card>> find(
+  static Future<List<Cardlist>> find(
     _i1.Session session, {
-    CardExpressionBuilder? where,
+    CardlistExpressionBuilder? where,
     int? limit,
     int? offset,
     _i1.Column? orderBy,
@@ -181,8 +181,8 @@ class Card extends _i1.TableRow {
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.find<Card>(
-      where: where != null ? where(Card.t) : null,
+    return session.db.find<Cardlist>(
+      where: where != null ? where(Cardlist.t) : null,
       limit: limit,
       offset: offset,
       orderBy: orderBy,
@@ -193,17 +193,17 @@ class Card extends _i1.TableRow {
     );
   }
 
-  static Future<Card?> findSingleRow(
+  static Future<Cardlist?> findSingleRow(
     _i1.Session session, {
-    CardExpressionBuilder? where,
+    CardlistExpressionBuilder? where,
     int? offset,
     _i1.Column? orderBy,
     bool orderDescending = false,
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.findSingleRow<Card>(
-      where: where != null ? where(Card.t) : null,
+    return session.db.findSingleRow<Cardlist>(
+      where: where != null ? where(Cardlist.t) : null,
       offset: offset,
       orderBy: orderBy,
       orderDescending: orderDescending,
@@ -212,27 +212,27 @@ class Card extends _i1.TableRow {
     );
   }
 
-  static Future<Card?> findById(
+  static Future<Cardlist?> findById(
     _i1.Session session,
     int id,
   ) async {
-    return session.db.findById<Card>(id);
+    return session.db.findById<Cardlist>(id);
   }
 
   static Future<int> delete(
     _i1.Session session, {
-    required CardExpressionBuilder where,
+    required CardlistExpressionBuilder where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<Card>(
-      where: where(Card.t),
+    return session.db.delete<Cardlist>(
+      where: where(Cardlist.t),
       transaction: transaction,
     );
   }
 
   static Future<bool> deleteRow(
     _i1.Session session,
-    Card row, {
+    Cardlist row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.deleteRow(
@@ -243,7 +243,7 @@ class Card extends _i1.TableRow {
 
   static Future<bool> update(
     _i1.Session session,
-    Card row, {
+    Cardlist row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.update(
@@ -254,7 +254,7 @@ class Card extends _i1.TableRow {
 
   static Future<void> insert(
     _i1.Session session,
-    Card row, {
+    Cardlist row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.insert(
@@ -265,13 +265,13 @@ class Card extends _i1.TableRow {
 
   static Future<int> count(
     _i1.Session session, {
-    CardExpressionBuilder? where,
+    CardlistExpressionBuilder? where,
     int? limit,
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<Card>(
-      where: where != null ? where(Card.t) : null,
+    return session.db.count<Cardlist>(
+      where: where != null ? where(Cardlist.t) : null,
       limit: limit,
       useCache: useCache,
       transaction: transaction,
@@ -279,17 +279,17 @@ class Card extends _i1.TableRow {
   }
 }
 
-typedef CardExpressionBuilder = _i1.Expression Function(CardTable);
+typedef CardlistExpressionBuilder = _i1.Expression Function(CardlistTable);
 
-class CardTable extends _i1.Table {
-  CardTable() : super(tableName: 'card');
+class CardlistTable extends _i1.Table {
+  CardlistTable() : super(tableName: 'card');
 
   /// The database id, set if the object has been inserted into the
   /// database or if it has been fetched from the database. Otherwise,
   /// the id will be null.
   final id = _i1.ColumnInt('id');
 
-  final listboardId = _i1.ColumnInt('listboardId');
+  final listId = _i1.ColumnInt('listId');
 
   final userId = _i1.ColumnInt('userId');
 
@@ -312,7 +312,7 @@ class CardTable extends _i1.Table {
   @override
   List<_i1.Column> get columns => [
         id,
-        listboardId,
+        listId,
         userId,
         name,
         description,
@@ -325,5 +325,5 @@ class CardTable extends _i1.Table {
       ];
 }
 
-@Deprecated('Use CardTable.t instead.')
-CardTable tCard = CardTable();
+@Deprecated('Use CardlistTable.t instead.')
+CardlistTable tCardlist = CardlistTable();

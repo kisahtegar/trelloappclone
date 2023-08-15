@@ -1,8 +1,8 @@
 class: ListBoard
 table: listboard
-fields: 
+fields:
   boardId: int, parent=board
-  userId: int, parent=user
+  userId: int, parent=trellouser
   name: String
   archived: bool?
-  cards: List<Card>?, api
+  cards: List<Cardlist>?, api 

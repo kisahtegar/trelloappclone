@@ -18,9 +18,9 @@ class ListBoardEndpoint extends Endpoint {
     // Loop through the listsBoard.
     for (int i = 0; i < listsBoard.length; i++) {
       // Get a cards, find where CardTable.listboardId is equal to listsBoard[i].id.
-      List<Card> cards = await Card.find(
+      List<Cardlist> cards = await Cardlist.find(
         session,
-        where: (c) => c.listboardId.equals(listsBoard[i].id),
+        where: (c) => c.listId.equals(listsBoard[i].id),
       );
       listsBoard[i].cards = cards;
     }

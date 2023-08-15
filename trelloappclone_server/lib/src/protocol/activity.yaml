@@ -2,7 +2,7 @@ class: Activity
 table: activity
 fields:
   boardId: int?, parent=board
-  userId: int, parent=user
+  userId: int, parent=trellouser
   cardId: int?, parent=card
   description: String
   dateCreated: DateTime

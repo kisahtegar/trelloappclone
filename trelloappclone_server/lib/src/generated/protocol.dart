@@ -21,11 +21,13 @@ import 'member.dart' as _i11;
 import 'user.dart' as _i12;
 import 'workspace.dart' as _i13;
 import 'protocol.dart' as _i14;
-import 'package:trelloappclone_server/src/generated/listboard.dart' as _i15;
-import 'package:trelloappclone_server/src/generated/member.dart' as _i16;
-import 'package:trelloappclone_server/src/generated/user.dart' as _i17;
-import 'package:trelloappclone_server/src/generated/workspace.dart' as _i18;
-import 'package:trelloappclone_server/src/generated/board.dart' as _i19;
+import 'package:trelloappclone_server/src/generated/activity.dart' as _i15;
+import 'package:trelloappclone_server/src/generated/board.dart' as _i16;
+import 'package:trelloappclone_server/src/generated/checklist.dart' as _i17;
+import 'package:trelloappclone_server/src/generated/listboard.dart' as _i18;
+import 'package:trelloappclone_server/src/generated/member.dart' as _i19;
+import 'package:trelloappclone_server/src/generated/user.dart' as _i20;
+import 'package:trelloappclone_server/src/generated/workspace.dart' as _i21;
 export 'activity.dart';
 export 'attachment.dart';
 export 'board.dart';
@@ -104,7 +106,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'activity_fk_1',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'trellouser',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: null,
@@ -173,7 +175,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'attachment_fk_0',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'trellouser',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: null,
@@ -336,7 +338,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'board_fk_1',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'trellouser',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: null,
@@ -373,7 +375,7 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'card_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
-          name: 'listboardId',
+          name: 'listId',
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int',
@@ -436,7 +438,7 @@ class Protocol extends _i1.SerializationManagerServer {
       foreignKeys: [
         _i2.ForeignKeyDefinition(
           constraintName: 'card_fk_0',
-          columns: ['listboardId'],
+          columns: ['listId'],
           referenceTable: 'listboard',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
@@ -447,7 +449,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'card_fk_1',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'trellouser',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: null,
@@ -575,7 +577,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'comment_fk_1',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'trellouser',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: null,
@@ -650,7 +652,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'listboard_fk_1',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'trellouser',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: null,
@@ -725,7 +727,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'member_fk_1',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'trellouser',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: null,
@@ -751,7 +753,7 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
-      name: 'user',
+      name: 'trellouser',
       schema: 'public',
       columns: [
         _i2.ColumnDefinition(
@@ -759,13 +761,13 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int?',
-          columnDefault: 'nextval(\'user_id_seq\'::regclass)',
+          columnDefault: 'nextval(\'trellouser_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
           name: 'name',
           columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
+          isNullable: true,
+          dartType: 'String?',
         ),
         _i2.ColumnDefinition(
           name: 'email',
@@ -779,17 +781,11 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: false,
           dartType: 'String',
         ),
-        _i2.ColumnDefinition(
-          name: 'handle',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-        ),
       ],
       foreignKeys: [],
       indexes: [
         _i2.IndexDefinition(
-          indexName: 'user_pkey',
+          indexName: 'trellouser_pkey',
           tableSpace: null,
           elements: [
             _i2.IndexElementDefinition(
@@ -828,12 +824,6 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
-          name: 'handle',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-        ),
-        _i2.ColumnDefinition(
           name: 'description',
           columnType: _i2.ColumnType.text,
           isNullable: false,
@@ -850,7 +840,7 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ForeignKeyDefinition(
           constraintName: 'workspace_fk_0',
           columns: ['userId'],
-          referenceTable: 'user',
+          referenceTable: 'trellouser',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: null,
@@ -896,8 +886,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i5.Board) {
       return _i5.Board.fromJson(data, this) as T;
     }
-    if (t == _i6.Card) {
-      return _i6.Card.fromJson(data, this) as T;
+    if (t == _i6.Cardlist) {
+      return _i6.Cardlist.fromJson(data, this) as T;
     }
     if (t == _i7.Checklist) {
       return _i7.Checklist.fromJson(data, this) as T;
@@ -929,8 +919,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i5.Board?>()) {
       return (data != null ? _i5.Board.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i6.Card?>()) {
-      return (data != null ? _i6.Card.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i6.Cardlist?>()) {
+      return (data != null ? _i6.Cardlist.fromJson(data, this) : null) as T;
     }
     if (t == _i1.getType<_i7.Checklist?>()) {
       return (data != null ? _i7.Checklist.fromJson(data, this) : null) as T;
@@ -953,9 +943,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i13.Workspace?>()) {
       return (data != null ? _i13.Workspace.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<List<_i14.Card>?>()) {
+    if (t == _i1.getType<List<_i14.Cardlist>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i14.Card>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i14.Cardlist>(e)).toList()
           : null) as dynamic;
     }
     if (t == _i1.getType<List<_i14.Member>?>()) {
@@ -963,24 +953,32 @@ class Protocol extends _i1.SerializationManagerServer {
           ? (data as List).map((e) => deserialize<_i14.Member>(e)).toList()
           : null) as dynamic;
     }
-    if (t == List<_i15.ListBoard>) {
-      return (data as List).map((e) => deserialize<_i15.ListBoard>(e)).toList()
+    if (t == List<_i15.Activity>) {
+      return (data as List).map((e) => deserialize<_i15.Activity>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i16.Member>) {
-      return (data as List).map((e) => deserialize<_i16.Member>(e)).toList()
+    if (t == List<_i16.Board>) {
+      return (data as List).map((e) => deserialize<_i16.Board>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i17.User>) {
-      return (data as List).map((e) => deserialize<_i17.User>(e)).toList()
+    if (t == List<_i17.Checklist>) {
+      return (data as List).map((e) => deserialize<_i17.Checklist>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i18.Workspace>) {
-      return (data as List).map((e) => deserialize<_i18.Workspace>(e)).toList()
+    if (t == List<_i18.ListBoard>) {
+      return (data as List).map((e) => deserialize<_i18.ListBoard>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i19.Board>) {
-      return (data as List).map((e) => deserialize<_i19.Board>(e)).toList()
+    if (t == List<_i19.Member>) {
+      return (data as List).map((e) => deserialize<_i19.Member>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i20.User>) {
+      return (data as List).map((e) => deserialize<_i20.User>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i21.Workspace>) {
+      return (data as List).map((e) => deserialize<_i21.Workspace>(e)).toList()
           as dynamic;
     }
     try {
@@ -1000,8 +998,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i5.Board) {
       return 'Board';
     }
-    if (data is _i6.Card) {
-      return 'Card';
+    if (data is _i6.Cardlist) {
+      return 'Cardlist';
     }
     if (data is _i7.Checklist) {
       return 'Checklist';
@@ -1038,8 +1036,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'Board') {
       return deserialize<_i5.Board>(data['data']);
     }
-    if (data['className'] == 'Card') {
-      return deserialize<_i6.Card>(data['data']);
+    if (data['className'] == 'Cardlist') {
+      return deserialize<_i6.Cardlist>(data['data']);
     }
     if (data['className'] == 'Checklist') {
       return deserialize<_i7.Checklist>(data['data']);
@@ -1080,8 +1078,8 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i4.Attachment.t;
       case _i5.Board:
         return _i5.Board.t;
-      case _i6.Card:
-        return _i6.Card.t;
+      case _i6.Cardlist:
+        return _i6.Cardlist.t;
       case _i7.Checklist:
         return _i7.Checklist.t;
       case _i8.Comment:

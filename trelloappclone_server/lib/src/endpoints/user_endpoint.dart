@@ -17,4 +17,16 @@ class UserEndpoint extends Endpoint {
     User? user = await User.findById(session, userId);
     return user;
   }
+
+  /// Checking user exist.
+  Future<User?> checkUserExists(Session session, User existinguser) async {
+    User? user = await User.findSingleRow(
+      session,
+      where: (u) =>
+          u.email.equals(existinguser.email) &
+          u.password.equals(existinguser.password),
+    );
+
+    return user;
+  }
 }

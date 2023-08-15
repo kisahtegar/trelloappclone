@@ -19,9 +19,9 @@ import '../endpoints/member_endpoint.dart' as _i10;
 import '../endpoints/user_endpoint.dart' as _i11;
 import '../endpoints/workspace_endpoint.dart' as _i12;
 import 'package:trelloappclone_server/src/generated/activity.dart' as _i13;
-import 'package:trelloappclone_server/src/generated/attachment.dart' as _i14;
-import 'package:trelloappclone_server/src/generated/board.dart' as _i15;
-import 'package:trelloappclone_server/src/generated/card.dart' as _i16;
+import 'package:trelloappclone_server/src/generated/card.dart' as _i14;
+import 'package:trelloappclone_server/src/generated/attachment.dart' as _i15;
+import 'package:trelloappclone_server/src/generated/board.dart' as _i16;
 import 'package:trelloappclone_server/src/generated/checklist.dart' as _i17;
 import 'package:trelloappclone_server/src/generated/comment.dart' as _i18;
 import 'package:trelloappclone_server/src/generated/listboard.dart' as _i19;
@@ -121,7 +121,25 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['activity'],
           ),
-        )
+        ),
+        'getActivities': _i1.MethodConnector(
+          name: 'getActivities',
+          params: {
+            'crd': _i1.ParameterDescription(
+              name: 'crd',
+              type: _i1.getType<_i14.Cardlist>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['activity'] as _i2.ActivityEndpoint).getActivities(
+            session,
+            params['crd'],
+          ),
+        ),
       },
     );
     connectors['attachment'] = _i1.EndpointConnector(
@@ -133,7 +151,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'attachment': _i1.ParameterDescription(
               name: 'attachment',
-              type: _i1.getType<_i14.Attachment>(),
+              type: _i1.getType<_i15.Attachment>(),
               nullable: false,
             )
           },
@@ -145,7 +163,44 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['attachment'],
           ),
-        )
+        ),
+        'getUploadDescription': _i1.MethodConnector(
+          name: 'getUploadDescription',
+          params: {
+            'path': _i1.ParameterDescription(
+              name: 'path',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['attachment'] as _i3.AttachmentEndpoint)
+                  .getUploadDescription(
+            session,
+            params['path'],
+          ),
+        ),
+        'verifyUpload': _i1.MethodConnector(
+          name: 'verifyUpload',
+          params: {
+            'path': _i1.ParameterDescription(
+              name: 'path',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['attachment'] as _i3.AttachmentEndpoint).verifyUpload(
+            session,
+            params['path'],
+          ),
+        ),
       },
     );
     connectors['board'] = _i1.EndpointConnector(
@@ -157,7 +212,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'board': _i1.ParameterDescription(
               name: 'board',
-              type: _i1.getType<_i15.Board>(),
+              type: _i1.getType<_i16.Board>(),
               nullable: false,
             )
           },
@@ -175,7 +230,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'board': _i1.ParameterDescription(
               name: 'board',
-              type: _i1.getType<_i15.Board>(),
+              type: _i1.getType<_i16.Board>(),
               nullable: false,
             )
           },
@@ -193,7 +248,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'board': _i1.ParameterDescription(
               name: 'board',
-              type: _i1.getType<_i15.Board>(),
+              type: _i1.getType<_i16.Board>(),
               nullable: false,
             )
           },
@@ -211,7 +266,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'board': _i1.ParameterDescription(
               name: 'board',
-              type: _i1.getType<_i15.Board>(),
+              type: _i1.getType<_i16.Board>(),
               nullable: false,
             )
           },
@@ -224,6 +279,15 @@ class Endpoints extends _i1.EndpointDispatch {
             params['board'],
           ),
         ),
+        'getAllBoards': _i1.MethodConnector(
+          name: 'getAllBoards',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['board'] as _i4.BoardEndpoint).getAllBoards(session),
+        ),
       },
     );
     connectors['card'] = _i1.EndpointConnector(
@@ -235,7 +299,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'card': _i1.ParameterDescription(
               name: 'card',
-              type: _i1.getType<_i16.Card>(),
+              type: _i1.getType<_i14.Cardlist>(),
               nullable: false,
             )
           },
@@ -253,7 +317,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'card': _i1.ParameterDescription(
               name: 'card',
-              type: _i1.getType<_i16.Card>(),
+              type: _i1.getType<_i14.Cardlist>(),
               nullable: false,
             )
           },
@@ -308,8 +372,8 @@ class Endpoints extends _i1.EndpointDispatch {
             params['checklist'],
           ),
         ),
-        'deleteChecklist': _i1.MethodConnector(
-          name: 'deleteChecklist',
+        'deleteChecklistItem': _i1.MethodConnector(
+          name: 'deleteChecklistItem',
           params: {
             'checklist': _i1.ParameterDescription(
               name: 'checklist',
@@ -321,9 +385,46 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['checklist'] as _i6.ChecklistEndpoint).deleteChecklist(
+              (endpoints['checklist'] as _i6.ChecklistEndpoint)
+                  .deleteChecklistItem(
             session,
             params['checklist'],
+          ),
+        ),
+        'getChecklists': _i1.MethodConnector(
+          name: 'getChecklists',
+          params: {
+            'crd': _i1.ParameterDescription(
+              name: 'crd',
+              type: _i1.getType<_i14.Cardlist>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['checklist'] as _i6.ChecklistEndpoint).getChecklists(
+            session,
+            params['crd'],
+          ),
+        ),
+        'deleteChecklist': _i1.MethodConnector(
+          name: 'deleteChecklist',
+          params: {
+            'crd': _i1.ParameterDescription(
+              name: 'crd',
+              type: _i1.getType<_i14.Cardlist>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['checklist'] as _i6.ChecklistEndpoint).deleteChecklist(
+            session,
+            params['crd'],
           ),
         ),
       },
@@ -560,6 +661,24 @@ class Endpoints extends _i1.EndpointDispatch {
               (endpoints['user'] as _i11.UserEndpoint).getUserById(
             session,
             userId: params['userId'],
+          ),
+        ),
+        'checkUserExists': _i1.MethodConnector(
+          name: 'checkUserExists',
+          params: {
+            'existinguser': _i1.ParameterDescription(
+              name: 'existinguser',
+              type: _i1.getType<_i22.User>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i11.UserEndpoint).checkUserExists(
+            session,
+            params['existinguser'],
           ),
         ),
       },

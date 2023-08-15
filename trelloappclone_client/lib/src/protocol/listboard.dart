@@ -33,7 +33,7 @@ class ListBoard extends _i1.SerializableEntity {
       archived: serializationManager
           .deserialize<bool?>(jsonSerialization['archived']),
       cards: serializationManager
-          .deserialize<List<_i2.Card>?>(jsonSerialization['cards']),
+          .deserialize<List<_i2.Cardlist>?>(jsonSerialization['cards']),
     );
   }
 
@@ -50,7 +50,7 @@ class ListBoard extends _i1.SerializableEntity {
 
   bool? archived;
 
-  List<_i2.Card>? cards;
+  List<_i2.Cardlist>? cards;
 
   @override
   Map<String, dynamic> toJson() {

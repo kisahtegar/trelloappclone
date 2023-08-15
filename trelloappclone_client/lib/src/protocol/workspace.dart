@@ -14,7 +14,6 @@ class Workspace extends _i1.SerializableEntity {
     this.id,
     required this.userId,
     required this.name,
-    required this.handle,
     required this.description,
     required this.visibility,
     this.members,
@@ -29,8 +28,6 @@ class Workspace extends _i1.SerializableEntity {
       userId:
           serializationManager.deserialize<int>(jsonSerialization['userId']),
       name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      handle:
-          serializationManager.deserialize<String>(jsonSerialization['handle']),
       description: serializationManager
           .deserialize<String>(jsonSerialization['description']),
       visibility: serializationManager
@@ -49,8 +46,6 @@ class Workspace extends _i1.SerializableEntity {
 
   String name;
 
-  String handle;
-
   String description;
 
   String visibility;
@@ -63,7 +58,6 @@ class Workspace extends _i1.SerializableEntity {
       'id': id,
       'userId': userId,
       'name': name,
-      'handle': handle,
       'description': description,
       'visibility': visibility,
       'members': members,

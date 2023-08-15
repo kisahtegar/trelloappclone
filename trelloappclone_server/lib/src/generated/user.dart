@@ -11,10 +11,9 @@ import 'package:serverpod/serverpod.dart' as _i1;
 class User extends _i1.TableRow {
   User({
     int? id,
-    required this.name,
+    this.name,
     required this.email,
     required this.password,
-    required this.handle,
   }) : super(id);
 
   factory User.fromJson(
@@ -23,28 +22,25 @@ class User extends _i1.TableRow {
   ) {
     return User(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
+      name:
+          serializationManager.deserialize<String?>(jsonSerialization['name']),
       email:
           serializationManager.deserialize<String>(jsonSerialization['email']),
       password: serializationManager
           .deserialize<String>(jsonSerialization['password']),
-      handle:
-          serializationManager.deserialize<String>(jsonSerialization['handle']),
     );
   }
 
   static final t = UserTable();
 
-  String name;
+  String? name;
 
   String email;
 
   String password;
 
-  String handle;
-
   @override
-  String get tableName => 'user';
+  String get tableName => 'trellouser';
   @override
   Map<String, dynamic> toJson() {
     return {
@@ -52,7 +48,6 @@ class User extends _i1.TableRow {
       'name': name,
       'email': email,
       'password': password,
-      'handle': handle,
     };
   }
 
@@ -63,7 +58,6 @@ class User extends _i1.TableRow {
       'name': name,
       'email': email,
       'password': password,
-      'handle': handle,
     };
   }
 
@@ -74,7 +68,6 @@ class User extends _i1.TableRow {
       'name': name,
       'email': email,
       'password': password,
-      'handle': handle,
     };
   }
 
@@ -95,9 +88,6 @@ class User extends _i1.TableRow {
         return;
       case 'password':
         password = value;
-        return;
-      case 'handle':
-        handle = value;
         return;
       default:
         throw UnimplementedError();
@@ -216,7 +206,7 @@ class User extends _i1.TableRow {
 typedef UserExpressionBuilder = _i1.Expression Function(UserTable);
 
 class UserTable extends _i1.Table {
-  UserTable() : super(tableName: 'user');
+  UserTable() : super(tableName: 'trellouser');
 
   /// The database id, set if the object has been inserted into the
   /// database or if it has been fetched from the database. Otherwise,
@@ -229,15 +219,12 @@ class UserTable extends _i1.Table {
 
   final password = _i1.ColumnString('password');
 
-  final handle = _i1.ColumnString('handle');
-
   @override
   List<_i1.Column> get columns => [
         id,
         name,
         email,
         password,
-        handle,
       ];
 }
 

@@ -20,11 +20,13 @@ import 'member.dart' as _i10;
 import 'user.dart' as _i11;
 import 'workspace.dart' as _i12;
 import 'protocol.dart' as _i13;
-import 'package:trelloappclone_client/src/protocol/listboard.dart' as _i14;
-import 'package:trelloappclone_client/src/protocol/member.dart' as _i15;
-import 'package:trelloappclone_client/src/protocol/user.dart' as _i16;
-import 'package:trelloappclone_client/src/protocol/workspace.dart' as _i17;
-import 'package:trelloappclone_client/src/protocol/board.dart' as _i18;
+import 'package:trelloappclone_client/src/protocol/activity.dart' as _i14;
+import 'package:trelloappclone_client/src/protocol/board.dart' as _i15;
+import 'package:trelloappclone_client/src/protocol/checklist.dart' as _i16;
+import 'package:trelloappclone_client/src/protocol/listboard.dart' as _i17;
+import 'package:trelloappclone_client/src/protocol/member.dart' as _i18;
+import 'package:trelloappclone_client/src/protocol/user.dart' as _i19;
+import 'package:trelloappclone_client/src/protocol/workspace.dart' as _i20;
 export 'activity.dart';
 export 'attachment.dart';
 export 'board.dart';
@@ -65,8 +67,8 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i4.Board) {
       return _i4.Board.fromJson(data, this) as T;
     }
-    if (t == _i5.Card) {
-      return _i5.Card.fromJson(data, this) as T;
+    if (t == _i5.Cardlist) {
+      return _i5.Cardlist.fromJson(data, this) as T;
     }
     if (t == _i6.Checklist) {
       return _i6.Checklist.fromJson(data, this) as T;
@@ -98,8 +100,8 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i4.Board?>()) {
       return (data != null ? _i4.Board.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i5.Card?>()) {
-      return (data != null ? _i5.Card.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i5.Cardlist?>()) {
+      return (data != null ? _i5.Cardlist.fromJson(data, this) : null) as T;
     }
     if (t == _i1.getType<_i6.Checklist?>()) {
       return (data != null ? _i6.Checklist.fromJson(data, this) : null) as T;
@@ -122,9 +124,9 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i12.Workspace?>()) {
       return (data != null ? _i12.Workspace.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<List<_i13.Card>?>()) {
+    if (t == _i1.getType<List<_i13.Cardlist>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i13.Card>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i13.Cardlist>(e)).toList()
           : null) as dynamic;
     }
     if (t == _i1.getType<List<_i13.Member>?>()) {
@@ -132,24 +134,32 @@ class Protocol extends _i1.SerializationManager {
           ? (data as List).map((e) => deserialize<_i13.Member>(e)).toList()
           : null) as dynamic;
     }
-    if (t == List<_i14.ListBoard>) {
-      return (data as List).map((e) => deserialize<_i14.ListBoard>(e)).toList()
+    if (t == List<_i14.Activity>) {
+      return (data as List).map((e) => deserialize<_i14.Activity>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i15.Member>) {
-      return (data as List).map((e) => deserialize<_i15.Member>(e)).toList()
+    if (t == List<_i15.Board>) {
+      return (data as List).map((e) => deserialize<_i15.Board>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i16.User>) {
-      return (data as List).map((e) => deserialize<_i16.User>(e)).toList()
+    if (t == List<_i16.Checklist>) {
+      return (data as List).map((e) => deserialize<_i16.Checklist>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i17.Workspace>) {
-      return (data as List).map((e) => deserialize<_i17.Workspace>(e)).toList()
+    if (t == List<_i17.ListBoard>) {
+      return (data as List).map((e) => deserialize<_i17.ListBoard>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i18.Board>) {
-      return (data as List).map((e) => deserialize<_i18.Board>(e)).toList()
+    if (t == List<_i18.Member>) {
+      return (data as List).map((e) => deserialize<_i18.Member>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i19.User>) {
+      return (data as List).map((e) => deserialize<_i19.User>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i20.Workspace>) {
+      return (data as List).map((e) => deserialize<_i20.Workspace>(e)).toList()
           as dynamic;
     }
     return super.deserialize<T>(data, t);
@@ -166,8 +176,8 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i4.Board) {
       return 'Board';
     }
-    if (data is _i5.Card) {
-      return 'Card';
+    if (data is _i5.Cardlist) {
+      return 'Cardlist';
     }
     if (data is _i6.Checklist) {
       return 'Checklist';
@@ -204,8 +214,8 @@ class Protocol extends _i1.SerializationManager {
     if (data['className'] == 'Board') {
       return deserialize<_i4.Board>(data['data']);
     }
-    if (data['className'] == 'Card') {
-      return deserialize<_i5.Card>(data['data']);
+    if (data['className'] == 'Cardlist') {
+      return deserialize<_i5.Cardlist>(data['data']);
     }
     if (data['className'] == 'Checklist') {
       return deserialize<_i6.Checklist>(data['data']);

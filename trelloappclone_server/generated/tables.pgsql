@@ -1,17 +1,16 @@
 --
--- Class User as table user
+-- Class User as table trellouser
 --
 
-CREATE TABLE "user" (
+CREATE TABLE "trellouser" (
   "id" serial,
-  "name" text NOT NULL,
+  "name" text,
   "email" text NOT NULL,
-  "password" text NOT NULL,
-  "handle" text NOT NULL
+  "password" text NOT NULL
 );
 
-ALTER TABLE ONLY "user"
-  ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY "trellouser"
+  ADD CONSTRAINT trellouser_pkey PRIMARY KEY (id);
 
 
 --
@@ -22,7 +21,6 @@ CREATE TABLE "workspace" (
   "id" serial,
   "userId" integer NOT NULL,
   "name" text NOT NULL,
-  "handle" text NOT NULL,
   "description" text NOT NULL,
   "visibility" text NOT NULL
 );
@@ -33,7 +31,7 @@ ALTER TABLE ONLY "workspace"
 ALTER TABLE ONLY "workspace"
   ADD CONSTRAINT workspace_fk_0
     FOREIGN KEY("userId")
-      REFERENCES user(id)
+      REFERENCES trellouser(id)
         ON DELETE CASCADE;
 
 --
@@ -59,7 +57,7 @@ ALTER TABLE ONLY "member"
 ALTER TABLE ONLY "member"
   ADD CONSTRAINT member_fk_1
     FOREIGN KEY("userId")
-      REFERENCES user(id)
+      REFERENCES trellouser(id)
         ON DELETE CASCADE;
 
 --
@@ -98,7 +96,7 @@ ALTER TABLE ONLY "board"
 ALTER TABLE ONLY "board"
   ADD CONSTRAINT board_fk_1
     FOREIGN KEY("userId")
-      REFERENCES user(id)
+      REFERENCES trellouser(id)
         ON DELETE CASCADE;
 
 --
@@ -124,16 +122,16 @@ ALTER TABLE ONLY "listboard"
 ALTER TABLE ONLY "listboard"
   ADD CONSTRAINT listboard_fk_1
     FOREIGN KEY("userId")
-      REFERENCES user(id)
+      REFERENCES trellouser(id)
         ON DELETE CASCADE;
 
 --
--- Class Card as table card
+-- Class Cardlist as table card
 --
 
 CREATE TABLE "card" (
   "id" serial,
-  "listboardId" integer NOT NULL,
+  "listId" integer NOT NULL,
   "userId" integer NOT NULL,
   "name" text NOT NULL,
   "description" text,
@@ -150,13 +148,13 @@ ALTER TABLE ONLY "card"
 
 ALTER TABLE ONLY "card"
   ADD CONSTRAINT card_fk_0
-    FOREIGN KEY("listboardId")
+    FOREIGN KEY("listId")
       REFERENCES listboard(id)
         ON DELETE CASCADE;
 ALTER TABLE ONLY "card"
   ADD CONSTRAINT card_fk_1
     FOREIGN KEY("userId")
-      REFERENCES user(id)
+      REFERENCES trellouser(id)
         ON DELETE CASCADE;
 
 --
@@ -176,7 +174,7 @@ ALTER TABLE ONLY "attachment"
 ALTER TABLE ONLY "attachment"
   ADD CONSTRAINT attachment_fk_0
     FOREIGN KEY("userId")
-      REFERENCES user(id)
+      REFERENCES trellouser(id)
         ON DELETE CASCADE;
 ALTER TABLE ONLY "attachment"
   ADD CONSTRAINT attachment_fk_1
@@ -226,7 +224,7 @@ ALTER TABLE ONLY "comment"
 ALTER TABLE ONLY "comment"
   ADD CONSTRAINT comment_fk_1
     FOREIGN KEY("userId")
-      REFERENCES user(id)
+      REFERENCES trellouser(id)
         ON DELETE CASCADE;
 
 --
@@ -253,7 +251,7 @@ ALTER TABLE ONLY "activity"
 ALTER TABLE ONLY "activity"
   ADD CONSTRAINT activity_fk_1
     FOREIGN KEY("userId")
-      REFERENCES user(id)
+      REFERENCES trellouser(id)
         ON DELETE CASCADE;
 ALTER TABLE ONLY "activity"
   ADD CONSTRAINT activity_fk_2

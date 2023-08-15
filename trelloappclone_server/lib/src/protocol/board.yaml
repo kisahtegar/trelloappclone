@@ -1,8 +1,8 @@
 class: Board
 table: board
-fields: 
+fields:
   workspaceId: int, parent=workspace
-  userId: int, parent=user
+  userId: int, parent=trellouser
   name: String
   description: String?
   visibility: String
