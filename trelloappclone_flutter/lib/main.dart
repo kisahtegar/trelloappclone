@@ -2,6 +2,10 @@ import 'package:trelloappclone_client/trelloappclone_client.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
+import 'features/board_background/presentation/index.dart';
+import 'features/create_board/presentation/index.dart';
+import 'features/create_card/presentation/index.dart';
+import 'features/create_workspace/presentation/index.dart';
 import 'features/home/presentation/index.dart';
 import 'features/landing/presentation/index.dart';
 import 'signtotrello/presentation/index.dart';
@@ -37,6 +41,10 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Landing(),
         '/home': (context) => const Home(),
         SignToTrello.routeName: (context) => SignToTrello(),
+        '/createworkspace': (context) => const CreateWorkspace(),
+        '/createboard': (context) => const CreateBoard(),
+        '/boardbackground': (context) => const BoardBackground(),
+        '/createcard': (context) => const CreateCard(),
       },
     );
   }
