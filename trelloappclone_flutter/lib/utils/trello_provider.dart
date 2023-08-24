@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trelloappclone_client/trelloappclone_client.dart';
 
-import 'config.dart';
+import 'package:trelloappclone_flutter/utils/config.dart';
 
 class TrelloProvider extends ChangeNotifier {
   late User _user;

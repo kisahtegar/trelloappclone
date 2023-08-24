@@ -1,10 +1,12 @@
+// ignore_for_file: unnecessary_null_checks
+
 import 'package:flutter/material.dart';
 import 'package:trelloappclone_client/trelloappclone_client.dart';
 
-import '../../../main.dart';
-import '../../../utils/color.dart';
-import '../../../utils/constant.dart';
-import '../../../utils/service.dart';
+import 'package:trelloappclone_flutter/main.dart';
+import 'package:trelloappclone_flutter/utils/color.dart';
+import 'package:trelloappclone_flutter/utils/constant.dart';
+import 'package:trelloappclone_flutter/utils/service.dart';
 
 class CreateBoard extends StatefulWidget {
   const CreateBoard({super.key});
@@ -24,25 +26,26 @@ class _CreateBoardState extends State<CreateBoard> with Service {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.close)),
-        title: const Text("Create board"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.close),
+        ),
+        title: const Text('Create board'),
         centerTitle: false,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(30),
         child: Column(
           children: [
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(hintText: "Enter Board name"),
+              decoration: const InputDecoration(hintText: 'Enter Board name'),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 8),
               child: DropdownButton<Workspace>(
-                hint: const Text("Workspace"),
+                hint: const Text('Workspace'),
                 isExpanded: true,
                 value: dropdownValue,
                 icon: const Icon(Icons.keyboard_arrow_down),
@@ -67,9 +70,9 @@ class _CreateBoardState extends State<CreateBoard> with Service {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 8),
               child: DropdownButton<Map<String, String>>(
-                hint: const Text("Visibility"),
+                hint: const Text('Visibility'),
                 isExpanded: true,
                 value: visibilityDropdownValue,
                 icon: const Icon(Icons.keyboard_arrow_down),
@@ -89,14 +92,14 @@ class _CreateBoardState extends State<CreateBoard> with Service {
                         (Map<String, String> value) {
                   return DropdownMenuItem<Map<String, String>>(
                     value: value,
-                    child: Text(value["type"]!),
+                    child: Text(value['type']!),
                   );
                 }).toList(),
               ),
             ),
             Row(
               children: [
-                const Text("Board backgroud"),
+                const Text('Board backgroud'),
                 const Spacer(),
                 GestureDetector(
                   onTap: () {
@@ -120,7 +123,6 @@ class _CreateBoardState extends State<CreateBoard> with Service {
               ],
             ),
             Align(
-              alignment: Alignment.center,
               child: Container(
                 padding: const EdgeInsets.only(top: 10),
                 width: MediaQuery.of(context).size.width * 0.8,
@@ -133,12 +135,12 @@ class _CreateBoardState extends State<CreateBoard> with Service {
                         workspaceId: dropdownValue?.id ?? 0,
                         userId: trello.user.id ?? 0,
                         name: nameController.text,
-                        visibility: visibilityDropdownValue!["type"]!,
+                        visibility: visibilityDropdownValue!['type']!,
                         background: trello.selectedBackground,
                       ),
                     );
                   },
-                  child: const Text("Create board"),
+                  child: const Text('Create board'),
                 ),
               ),
             )

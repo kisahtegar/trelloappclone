@@ -1,11 +1,11 @@
-import 'board_item_object.dart';
+import 'package:trelloappclone_flutter/features/board/presentation/board_item_object.dart';
 
 class BoardListObject {
-  String? title;
-  List<BoardItemObject>? items;
 
   BoardListObject({this.title, this.items}) {
-    title ??= "";
+    title ??= '';
     items ??= [];
   }
+  String? title;
+  List<BoardItemObject>? items;
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_function_return_type, always_declare_return_types, type_annotate_public_apis, omit_local_variable_types, prefer_final_locals, unawaited_futures, unnecessary_await_in_return, avoid_redundant_argument_values
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,8 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:status_alert/status_alert.dart';
 import 'package:trelloappclone_client/trelloappclone_client.dart';
 
-import '../main.dart';
-import 'color.dart';
+import 'package:trelloappclone_flutter/features/home/presentation/custom_search.dart';
+import 'package:trelloappclone_flutter/main.dart';
+import 'package:trelloappclone_flutter/utils/color.dart';
 
 mixin Service {
   /// This function used to sign up new user
@@ -94,7 +97,16 @@ mixin Service {
   }
 
   /// This function used for search for a board
-  search(BuildContext context) async {}
+  search(BuildContext context) async {
+    final allboards = await client.board.getAllBoards();
+
+    if (context.mounted) {
+      await showSearch(
+        context: context,
+        delegate: CustomSearchDelegate(allboards),
+      );
+    }
+  }
 
   /// This function used for creating workspace.
   createWorkspace(
@@ -121,13 +133,13 @@ mixin Service {
         workspaceId: addedWorkspace.id ?? 0,
         userId: trello.user.id ?? 0,
         name: trello.user.name!,
-        role: "Admin",
+        role: 'Admin',
       );
       await client.member.addMember(newMember);
 
       // back to home page.
       if (context.mounted) {
-        Navigator.pushNamed(context, "/home");
+        Navigator.pushNamed(context, '/home');
       }
     } on Exception catch (e) {
       StatusAlert.show(
@@ -157,7 +169,7 @@ mixin Service {
     try {
       await client.board.createBoard(brd);
       if (context.mounted) {
-        Navigator.pushNamed(context, "/home");
+        Navigator.pushNamed(context, '/home');
       }
     } on Exception catch (e) {
       StatusAlert.show(
@@ -224,8 +236,8 @@ mixin Service {
 
   /// This used to create activity
   Future<void> createActivity({
-    int? boardId,
     required String description,
+    int? boardId,
     int? card,
   }) async {
     await client.activity.createActivity(
@@ -248,7 +260,7 @@ mixin Service {
   Future<void> addList(ListBoard lst) async {
     await client.listBoard.createList(lst);
     createActivity(
-      description: "${trello.user.name} added a new list ${lst.name}",
+      description: '${trello.user.name} added a new list ${lst.name}',
     );
   }
 
@@ -257,7 +269,7 @@ mixin Service {
     Cardlist newcrd = await client.card.createCard(crd);
     createActivity(
       card: newcrd.id,
-      description: "${trello.user.name} added a new card ${crd.name}",
+      description: '${trello.user.name} added a new card ${crd.name}',
     );
   }
 
@@ -266,8 +278,9 @@ mixin Service {
     await client.card.updateCard(crd);
 
     createActivity(
-        card: crd.id,
-        description: "${trello.user.name} updated the card ${crd.name}");
+      card: crd.id,
+      description: '${trello.user.name} updated the card ${crd.name}',
+    );
   }
 
   /// This used to create comment.
@@ -302,7 +315,7 @@ mixin Service {
       allowMultiple: false,
     );
     if (result != null) {
-      addAttachment(result.files[0].path ?? "", crd);
+      await addAttachment(result.files[0].path ?? '', crd);
     }
   }
 
@@ -319,7 +332,7 @@ mixin Service {
       success = await client.attachment.verifyUpload(path);
     }
     if (success) {
-      insertAttachment(crd, path);
+      await insertAttachment(crd, path);
     }
     return success;
   }

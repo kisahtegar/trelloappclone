@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: inference_failure_on_function_invocation
 
-import '../../../utils/color.dart';
-import '../../../utils/config.dart';
-import '../../../utils/constant.dart';
-import '../../../utils/service.dart';
-import 'bottomsheet.dart';
+import 'package:flutter/material.dart';
+import 'package:trelloappclone_flutter/features/landing/presentation/bottomsheet.dart';
+import 'package:trelloappclone_flutter/utils/color.dart';
+import 'package:trelloappclone_flutter/utils/config.dart';
+import 'package:trelloappclone_flutter/utils/constant.dart';
+import 'package:trelloappclone_flutter/utils/service.dart';
 
 class Landing extends StatefulWidget {
   const Landing({super.key});
@@ -22,7 +23,7 @@ class _LandingState extends State<Landing> with Service {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Image.asset(
                 logo,
                 width: 30,
@@ -34,7 +35,7 @@ class _LandingState extends State<Landing> with Service {
               height: MediaQuery.of(context).size.height * 0.4,
             ),
             const Padding(
-              padding: EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(25),
               child: Text(
                 headline,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -42,7 +43,7 @@ class _LandingState extends State<Landing> with Service {
               ),
             ),
             Container(
-              margin: const EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8),
               width: MediaQuery.of(context).size.width * 0.8,
               height: 50,
               child: ElevatedButton(
@@ -55,11 +56,11 @@ class _LandingState extends State<Landing> with Service {
                   );
                   // signUp(context);
                 },
-                child: const Text("Sign up"),
+                child: const Text('Sign up'),
               ),
             ),
             Container(
-              margin: const EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8),
               width: MediaQuery.of(context).size.width * 0.8,
               height: 50,
               child: OutlinedButton(
@@ -72,9 +73,9 @@ class _LandingState extends State<Landing> with Service {
                   );
                 },
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(width: 1.0, color: brandColor),
+                  side: const BorderSide(color: brandColor),
                 ),
-                child: const Text("Log in"),
+                child: const Text('Log in'),
               ),
             ),
             const Text(

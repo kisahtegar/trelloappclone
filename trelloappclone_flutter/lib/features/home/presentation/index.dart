@@ -1,14 +1,16 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:trelloappclone_client/trelloappclone_client.dart';
-
-import '../../../utils/color.dart';
-import '../../../utils/service.dart';
-import '../../../utils/widgets.dart';
-import '../../board/domain/board_arguments.dart';
-import '../../board/presentation/index.dart';
-import 'custom_floating_action.dart';
+import 'package:trelloappclone_flutter/features/board/domain/board_arguments.dart';
+import 'package:trelloappclone_flutter/features/board/presentation/index.dart';
+import 'package:trelloappclone_flutter/features/drawer/presentation/index.dart';
+import 'package:trelloappclone_flutter/features/home/presentation/custom_floating_action.dart';
+import 'package:trelloappclone_flutter/utils/color.dart';
+import 'package:trelloappclone_flutter/utils/service.dart';
+import 'package:trelloappclone_flutter/utils/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,7 +24,7 @@ class _HomeState extends State<Home> with Service {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Boards"),
+        title: const Text('Boards'),
         actions: [
           // Search button
           IconButton(
@@ -40,6 +42,7 @@ class _HomeState extends State<Home> with Service {
           )
         ],
       ),
+      drawer: const CustomDrawer(),
       body: FutureBuilder(
         future: getWorkspaces(),
         builder: (
@@ -47,7 +50,7 @@ class _HomeState extends State<Home> with Service {
           AsyncSnapshot<List<Workspace>> snapshot,
         ) {
           if (snapshot.hasData) {
-            List<Workspace> children = snapshot.data as List<Workspace>;
+            final children = snapshot.data as List<Workspace>;
 
             if (children.isNotEmpty) {
               return SingleChildScrollView(
@@ -59,9 +62,8 @@ class _HomeState extends State<Home> with Service {
           // If workspace doesn't have data
           return Center(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20),
               child: EmptyWidget(
-                image: null,
                 packageImage: PackageImage.Image_1,
                 title: 'No Boards',
                 subTitle: 'Create your first Trello board',
@@ -85,21 +87,20 @@ class _HomeState extends State<Home> with Service {
         openButtonBuilder: RotateFloatingActionButtonBuilder(
           child: const Icon(Icons.add),
           backgroundColor: Colors.green[400],
-          fabSize: ExpandableFabSize.regular,
         ),
         children: const [
           CustomFloatingAction(
-            title: "Workspace",
+            title: 'Workspace',
             icon: Icons.book,
             route: '/createworkspace',
           ),
           CustomFloatingAction(
-            title: "Board",
+            title: 'Board',
             icon: Icons.book,
             route: '/createboard',
           ),
           CustomFloatingAction(
-            title: "Card",
+            title: 'Card',
             icon: Icons.card_membership,
             route: '/createcard',
           ),
@@ -110,11 +111,11 @@ class _HomeState extends State<Home> with Service {
 
   // This used to build workspaces and boards
   List<Widget> buildWorkspacesAndBoards(List<Workspace> wkspcs) {
-    List<Widget> workspacesandboards = [];
+    final workspacesandboards = <Widget>[];
     Widget workspace;
 
     // Loop through the workspaces.
-    for (int i = 0; i < wkspcs.length; i++) {
+    for (var i = 0; i < wkspcs.length; i++) {
       workspace = ListTile(
         tileColor: whiteShade,
         leading: Text(wkspcs[i].name),
@@ -127,32 +128,33 @@ class _HomeState extends State<Home> with Service {
       );
 
       // add workspace
-      workspacesandboards.add(workspace);
+      workspacesandboards
+        ..add(workspace)
+        ..add(
+          // Getting boards
+          FutureBuilder(
+            future: getBoards(wkspcs[i].id!),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Board>> snapshot) {
+              if (snapshot.hasData) {
+                final children = snapshot.data as List<Board>;
 
-      workspacesandboards.add(
-        // Getting boards
-        FutureBuilder(
-          future: getBoards(wkspcs[i].id!),
-          builder: (BuildContext context, AsyncSnapshot<List<Board>> snapshot) {
-            if (snapshot.hasData) {
-              List<Board> children = snapshot.data as List<Board>;
-
-              if (children.isNotEmpty) {
-                return Column(children: buildBoards(children, wkspcs[i]));
+                if (children.isNotEmpty) {
+                  return Column(children: buildBoards(children, wkspcs[i]));
+                }
               }
-            }
-            return const SizedBox.shrink();
-          },
-        ),
-      );
+              return const SizedBox.shrink();
+            },
+          ),
+        );
     }
     return workspacesandboards;
   }
 
   // This used to build board
   List<Widget> buildBoards(List<Board> brd, Workspace wkspc) {
-    List<Widget> boards = [];
-    for (int j = 0; j < brd.length; j++) {
+    final boards = <Widget>[];
+    for (var j = 0; j < brd.length; j++) {
       boards.add(
         ListTile(
           leading: ColorSquare(

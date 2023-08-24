@@ -2,7 +2,15 @@
 
 A new Flutter project with Serverpod.
 
-<!-- ## 📋 Previews -->
+## 📋 Previews
+This the output application after running the project.
+<p align="center">
+  <img src="https://github.com/kisahtegar/trelloappclone/main/previews/flutter_01.png"  width="200" height="400"/>
+  <img src="https://github.com/kisahtegar/trelloappclone/main/previews/flutter_02.png"  width="200" height="400"/>
+  <img src="https://github.com/kisahtegar/trelloappclone/main/previews/flutter_03.png"  width="200" height="400"/>
+  <img src="https://github.com/kisahtegar/trelloappclone/main/previews/flutter_04.png"  width="200" height="400"/>
+  <img src="https://github.com/kisahtegar/trelloappclone/main/previews/flutter_05.png"  width="200" height="400"/>
+</p>
 
 ## 🧪 Getting Started
 To run the project, first make sure that the server is running using:

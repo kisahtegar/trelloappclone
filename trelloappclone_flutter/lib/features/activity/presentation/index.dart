@@ -1,12 +1,14 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'package:flutter/material.dart';
 import 'package:trelloappclone_client/trelloappclone_client.dart';
 
-import '../../../utils/color.dart';
-import '../../../utils/service.dart';
+import 'package:trelloappclone_flutter/utils/color.dart';
+import 'package:trelloappclone_flutter/utils/service.dart';
 
 class Activities extends StatefulWidget {
-  final Cardlist crd;
   const Activities(this.crd, {super.key});
+  final Cardlist crd;
 
   @override
   State<Activities> createState() => _ActivitiesState();
@@ -22,7 +24,7 @@ class _ActivitiesState extends State<Activities> with Service {
       future: getActivities(widget.crd),
       builder: (BuildContext context, AsyncSnapshot<List<Activity>> snapshot) {
         if (snapshot.hasData) {
-          List<Activity> children = snapshot.data as List<Activity>;
+          final children = snapshot.data as List<Activity>;
 
           if (children.isNotEmpty) {
             return ListView(shrinkWrap: true, children: buildWidget(children));
@@ -34,9 +36,9 @@ class _ActivitiesState extends State<Activities> with Service {
   }
 
   List<Widget> buildWidget(List<Activity> activities) {
-    List<Widget> tiles = [];
+    final tiles = <Widget>[];
 
-    for (int i = 0; i < activities.length; i++) {
+    for (var i = 0; i < activities.length; i++) {
       tiles.add(ActivityTile(activity: activities[i].description));
     }
     return tiles;
@@ -44,8 +46,8 @@ class _ActivitiesState extends State<Activities> with Service {
 }
 
 class ActivityTile extends StatefulWidget {
-  final String activity;
   const ActivityTile({required this.activity, super.key});
+  final String activity;
 
   @override
   State<ActivityTile> createState() => _ActivityTileState();
@@ -59,7 +61,7 @@ class _ActivityTileState extends State<ActivityTile> {
         backgroundColor: brandColor,
       ),
       title: Text(widget.activity),
-      subtitle: const Text("01 Jan 2023 at 1:11 am"),
+      subtitle: const Text('01 Jan 2023 at 1:11 am'),
     );
   }
 }

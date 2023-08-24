@@ -1,37 +1,39 @@
+// ignore_for_file: no_adjacent_strings_in_list
+
 import 'package:flutter/painting.dart' show Color;
 
-const logo = "assets/trello-logo.png";
-const landingImage = "assets/landing.jpg";
+const logo = 'assets/trello-logo.png';
+const landingImage = 'assets/landing.jpg';
 const backgrounds = [
-  "#ADD8E6"
-      "#89CFF0",
-  "#0000FF",
-  "#7393B3",
-  "#088F8F",
-  "#0096FF",
-  "#5F9EA0",
-  "#0047AB",
-  "#6495ED",
-  "#00FFFF",
-  "#00008B",
-  "#6F8FAF",
-  "#1434A4",
-  "#7DF9FF",
-  "#6082B6",
-  "#00A36C",
-  "#3F00FF",
-  "#5D3FD3"
+  '#ADD8E6'
+      '#89CFF0',
+  '#0000FF',
+  '#7393B3',
+  '#088F8F',
+  '#0096FF',
+  '#5F9EA0',
+  '#0047AB',
+  '#6495ED',
+  '#00FFFF',
+  '#00008B',
+  '#6F8FAF',
+  '#1434A4',
+  '#7DF9FF',
+  '#6082B6',
+  '#00A36C',
+  '#3F00FF',
+  '#5D3FD3'
 ];
 
 const listMenu = [
-  "Add Card",
-  "Copy list",
-  "Move list",
-  "Watch",
-  "Sort by",
-  "Move all cards in this list",
-  "Archive all cards in this list",
-  "Archive list",
+  'Add Card',
+  'Copy list',
+  'Move list',
+  'Watch',
+  'Sort by',
+  'Move all cards in this list',
+  'Archive all cards in this list',
+  'Archive list',
 ];
 
 const labels = [

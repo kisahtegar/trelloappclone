@@ -8,13 +8,16 @@ class ViewMembers extends StatefulWidget {
 }
 
 class _ViewMembersState extends State<ViewMembers> {
-  List cardMembers = [
-    {"name": "Jane Doe", "handle": "@janedoe"}
+  List<Map<String, String>> cardMembers = [
+    {
+      'name': 'Jane Doe',
+      'handle': '@janedoe',
+    }
   ];
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Card Members"),
+      title: const Text('Card Members'),
       content: SizedBox(
         height: 80,
         child: Column(children: buildWidgets()),
@@ -24,20 +27,20 @@ class _ViewMembersState extends State<ViewMembers> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text("DONE"),
+          child: const Text('DONE'),
         )
       ],
     );
   }
 
   List<Widget> buildWidgets() {
-    List<Widget> members = [];
-    for (int i = 0; i < cardMembers.length; i++) {
+    final members = <Widget>[];
+    for (var i = 0; i < cardMembers.length; i++) {
       members.add(
         ListTile(
           leading: const CircleAvatar(),
-          title: Text(cardMembers[i]["name"]),
-          subtitle: Text(cardMembers[i]["handle"]),
+          title: Text(cardMembers[i]['name']!),
+          subtitle: Text(cardMembers[i]['handle']!),
         ),
       );
     }

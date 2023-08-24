@@ -1,6 +1,8 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
+import 'package:trelloappclone_flutter/main.dart';
 import 'package:trelloappclone_flutter/utils/config.dart';
-import '../../../main.dart';
 
 class BoardBackground extends StatefulWidget {
   const BoardBackground({super.key});
@@ -14,15 +16,15 @@ class _BoardBackgroundState extends State<BoardBackground> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Board background"),
+        title: const Text('Board background'),
         centerTitle: false,
       ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            childAspectRatio: 1,
-            crossAxisSpacing: 3,
-            mainAxisSpacing: 20),
+          maxCrossAxisExtent: 200,
+          crossAxisSpacing: 3,
+          mainAxisSpacing: 20,
+        ),
         itemCount: backgrounds.length,
         itemBuilder: (BuildContext cxt, index) {
           return GestureDetector(
@@ -43,15 +45,16 @@ class _BoardBackgroundState extends State<BoardBackground> {
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
-                (backgrounds[index] == trello.selectedBackground)
-                    ? const Center(
-                        child: Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 50,
-                        ),
-                      )
-                    : const SizedBox.shrink()
+                if (backgrounds[index] == trello.selectedBackground)
+                  const Center(
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  )
+                else
+                  const SizedBox.shrink()
               ],
             ),
           );

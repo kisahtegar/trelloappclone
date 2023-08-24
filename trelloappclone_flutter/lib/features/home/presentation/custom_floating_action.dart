@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomFloatingAction extends StatelessWidget {
+
+  const CustomFloatingAction({
+    required this.title, required this.icon, required this.route, super.key,
+  });
   final String title;
   final IconData icon;
   final String route;
-
-  const CustomFloatingAction({
-    super.key,
-    required this.title,
-    required this.icon,
-    required this.route,
-  });
 
   @override
   Widget build(BuildContext context) {

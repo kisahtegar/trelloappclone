@@ -1,19 +1,20 @@
+// ignore_for_file: cast_nullable_to_non_nullable, unnecessary_null_checks, cascade_invocations, lines_longer_than_80_chars
+
 import 'package:boardview/board_item.dart';
 import 'package:boardview/board_list.dart';
 import 'package:boardview/boardview.dart';
 import 'package:boardview/boardview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:trelloappclone_client/trelloappclone_client.dart';
-
-import '../../../main.dart';
-import '../../../utils/color.dart';
-import '../../../utils/config.dart';
-import '../../../utils/service.dart';
-import '../../card_details/domain/card_detail_arguments.dart';
-import '../../card_details/presentation/index.dart';
-import '../domain/board_arguments.dart';
-import 'board_item_object.dart';
-import 'board_list_object.dart';
+import 'package:trelloappclone_flutter/features/board/domain/board_arguments.dart';
+import 'package:trelloappclone_flutter/features/board/presentation/board_item_object.dart';
+import 'package:trelloappclone_flutter/features/board/presentation/board_list_object.dart';
+import 'package:trelloappclone_flutter/features/card_details/domain/card_detail_arguments.dart';
+import 'package:trelloappclone_flutter/features/card_details/presentation/index.dart';
+import 'package:trelloappclone_flutter/main.dart';
+import 'package:trelloappclone_flutter/utils/color.dart';
+import 'package:trelloappclone_flutter/utils/config.dart';
+import 'package:trelloappclone_flutter/utils/service.dart';
 
 class BoardScreen extends StatefulWidget {
   const BoardScreen({super.key});
@@ -44,7 +45,7 @@ class _BoardScreenState extends State<BoardScreen> with Service {
 
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushNamed(context, "/home");
+        await Navigator.pushNamed(context, '/home');
         return false;
       },
       child: Scaffold(
@@ -60,7 +61,7 @@ class _BoardScreenState extends State<BoardScreen> with Service {
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, "/notifications");
+                      Navigator.pushNamed(context, '/notifications');
                     },
                     icon: const Icon(Icons.notifications_none),
                   ),
@@ -76,12 +77,12 @@ class _BoardScreenState extends State<BoardScreen> with Service {
                 leading: IconButton(
                   onPressed: () {
                     setState(() {
-                      (show) ? show = false : showCard = false;
+                      show ? show = false : showCard = false;
                     });
                   },
                   icon: const Icon(Icons.close),
                 ),
-                title: Text((show) ? "Add list" : "Add card"),
+                title: Text(show ? 'Add list' : 'Add card'),
                 centerTitle: false,
                 actions: [
                   IconButton(
@@ -89,9 +90,10 @@ class _BoardScreenState extends State<BoardScreen> with Service {
                       if (show) {
                         addList(
                           ListBoard(
-                              boardId: args.board.id!,
-                              userId: trello.user.id!,
-                              name: nameController.text),
+                            boardId: args.board.id!,
+                            userId: trello.user.id!,
+                            name: nameController.text,
+                          ),
                         );
                         nameController.clear();
                         setState(() {
@@ -116,14 +118,16 @@ class _BoardScreenState extends State<BoardScreen> with Service {
                 ],
               ),
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10),
           child: FutureBuilder(
             initialData: lists,
             future: loadBoardView(args),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<BoardList>> snapshot) {
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<List<BoardList>> snapshot,
+            ) {
               if (snapshot.hasData) {
-                List<BoardList> children = snapshot.data as List<BoardList>;
+                final children = snapshot.data as List<BoardList>;
 
                 if (children.isNotEmpty) {
                   return BoardView(
@@ -152,7 +156,7 @@ class _BoardScreenState extends State<BoardScreen> with Service {
     return BoardItem(
       onStartDragItem: (listIndex, itemIndex, state) {},
       onDropItem: (listIndex, itemIndex, oldListIndex, oldItemIndex, state) {
-        var item = data[oldListIndex!].items![oldItemIndex!];
+        final item = data[oldListIndex!].items![oldItemIndex!];
         data[oldListIndex].items!.removeAt(oldItemIndex);
         data[listIndex!].items!.insert(itemIndex!, item);
 
@@ -178,7 +182,7 @@ class _BoardScreenState extends State<BoardScreen> with Service {
       },
       item: Card(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(itemObject.title!),
         ),
       ),
@@ -190,67 +194,72 @@ class _BoardScreenState extends State<BoardScreen> with Service {
     List<BoardListObject> data,
     int index,
   ) {
-    List<BoardItem> items = [];
-    for (int i = 0; i < list.items!.length; i++) {
+    final items = <BoardItem>[];
+    for (var i = 0; i < list.items!.length; i++) {
       items.insert(i, buildBoardItem(list.items![i], data) as BoardItem);
     }
 
-    textEditingControllers.putIfAbsent(index, () => TextEditingController());
+    textEditingControllers.putIfAbsent(index, TextEditingController.new);
     showtheCard.putIfAbsent(index, () => false);
 
     items.insert(
-        list.items!.length,
-        BoardItem(
-          onTapItem: (listIndex, itemIndex, state) {
-            setState(() {
-              selectedList = listIndex!;
-              selectedCard = index;
-              showCard = true;
-              showtheCard[index] = true;
-            });
-          },
-          item: (!showtheCard[index]!)
-              ? ListTile(
-                  leading: const Text.rich(TextSpan(
+      list.items!.length,
+      BoardItem(
+        onTapItem: (listIndex, itemIndex, state) {
+          setState(() {
+            selectedList = listIndex!;
+            selectedCard = index;
+            showCard = true;
+            showtheCard[index] = true;
+          });
+        },
+        item: (!showtheCard[index]!)
+            ? ListTile(
+                leading: const Text.rich(
+                  TextSpan(
                     children: <InlineSpan>[
                       WidgetSpan(
-                          child: Icon(
-                        Icons.add,
-                        size: 19,
-                        color: whiteShade,
-                      )),
+                        child: Icon(
+                          Icons.add,
+                          size: 19,
+                          color: whiteShade,
+                        ),
+                      ),
                       WidgetSpan(
                         child: SizedBox(
                           width: 5,
                         ),
                       ),
                       TextSpan(
-                          text: "Add card",
-                          style: TextStyle(color: whiteShade)),
+                        text: 'Add card',
+                        style: TextStyle(color: whiteShade),
+                      ),
                     ],
-                  )),
-                  trailing: IconButton(
-                    icon: const Icon(
-                      Icons.image,
-                      color: whiteShade,
-                    ),
-                    onPressed: () {},
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextField(
-                    controller: textEditingControllers[index],
-                    decoration: const InputDecoration(hintText: "Card name"),
                   ),
                 ),
-        ));
+                trailing: IconButton(
+                  icon: const Icon(
+                    Icons.image,
+                    color: whiteShade,
+                  ),
+                  onPressed: () {},
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextField(
+                  controller: textEditingControllers[index],
+                  decoration: const InputDecoration(hintText: 'Card name'),
+                ),
+              ),
+      ),
+    );
 
     return BoardList(
       onStartDragList: (listIndex) {},
       onTapList: (listIndex) async {},
       onDropList: (listIndex, oldListIndex) {
-        var list = data[oldListIndex!];
+        final list = data[oldListIndex!];
         data.removeAt(oldListIndex);
         data.insert(listIndex!, list);
       },
@@ -339,21 +348,24 @@ class _BoardScreenState extends State<BoardScreen> with Service {
   Future<List<BoardListObject>> generateBoardListObject(
     BoardArguments args,
   ) async {
-    final List<BoardListObject> listData = [];
+    final listData = <BoardListObject>[];
 
-    List<ListBoard> getLists = await getListsByBoard(args.board);
-    for (int i = 0; i < getLists.length; i++) {
-      listData.add(BoardListObject(
+    final getLists = await getListsByBoard(args.board);
+    for (var i = 0; i < getLists.length; i++) {
+      listData.add(
+        BoardListObject(
           title: getLists[i].name,
-          items: generateBoardItemObject(getLists[i].cards!)));
+          items: generateBoardItemObject(getLists[i].cards!),
+        ),
+      );
     }
 
     return listData;
   }
 
   List<BoardItemObject> generateBoardItemObject(List<Cardlist> crds) {
-    final List<BoardItemObject> items = [];
-    for (int i = 0; i < crds.length; i++) {
+    final items = <BoardItemObject>[];
+    for (var i = 0; i < crds.length; i++) {
       items.add(BoardItemObject(title: crds[i].name));
     }
     return items;
@@ -361,10 +373,10 @@ class _BoardScreenState extends State<BoardScreen> with Service {
 
   // This used to Load board
   Future<List<BoardList>> loadBoardView(BoardArguments args) async {
-    List<BoardListObject> data = await generateBoardListObject(args);
+    final data = await generateBoardListObject(args);
     lists = [];
 
-    for (int i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
       lists.add(_createBoardList(data[i], data, i) as BoardList);
     }
 
@@ -384,20 +396,20 @@ class _BoardScreenState extends State<BoardScreen> with Service {
                 width: width,
                 height: 50,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(10),
                   color: brandColor,
                 ),
                 child: (!show)
                     ? const Text(
-                        "Add list",
+                        'Add list',
                         style: TextStyle(color: whiteShade),
                       )
                     : Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10),
                         child: TextField(
                           controller: nameController,
                           decoration:
-                              const InputDecoration(hintText: "List name"),
+                              const InputDecoration(hintText: 'List name'),
                         ),
                       ),
               ),

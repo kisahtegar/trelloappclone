@@ -1,8 +1,10 @@
+// ignore_for_file: unnecessary_null_checks, lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 
-import '../../../utils/color.dart';
-import '../../../utils/constant.dart';
-import '../../../utils/service.dart';
+import 'package:trelloappclone_flutter/utils/color.dart';
+import 'package:trelloappclone_flutter/utils/constant.dart';
+import 'package:trelloappclone_flutter/utils/service.dart';
 
 class CreateWorkspace extends StatefulWidget {
   const CreateWorkspace({super.key});
@@ -20,34 +22,34 @@ class _CreateWorkspaceState extends State<CreateWorkspace> with Service {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create Workspace"),
+        title: const Text('Create Workspace'),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding: EdgeInsets.only(bottom: 8.0),
+                padding: EdgeInsets.only(bottom: 8),
                 child: Text(
                   "Let's build a Workspace",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
               ),
               const Text(
-                "Boost your productivity by making it easier for everyone to access boards in one location",
+                'Boost your productivity by making it easier for everyone to access boards in one location',
                 style: TextStyle(fontSize: 16),
               ),
               TextField(
                 controller: nameController,
                 decoration:
-                    const InputDecoration(hintText: "Enter workspace name"),
+                    const InputDecoration(hintText: 'Enter workspace name'),
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: Text("Visibility"),
+                padding: EdgeInsets.only(top: 8),
+                child: Text('Visibility'),
               ),
               DropdownButton<Map<String, String>>(
                 isExpanded: true,
@@ -70,13 +72,13 @@ class _CreateWorkspaceState extends State<CreateWorkspace> with Service {
                         (Map<String, String> value) {
                   return DropdownMenuItem<Map<String, String>>(
                     value: value,
-                    child: Text(value["type"]!),
+                    child: Text(value['type']!),
                   );
                 }).toList(),
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: Text("Description"),
+                padding: EdgeInsets.only(top: 10),
+                child: Text('Description'),
               ),
               TextField(
                 controller: descriptionController,
@@ -84,7 +86,6 @@ class _CreateWorkspaceState extends State<CreateWorkspace> with Service {
                 minLines: 4,
               ),
               Align(
-                alignment: Alignment.center,
                 child: Container(
                   padding: const EdgeInsets.only(top: 10),
                   width: MediaQuery.of(context).size.width * 0.8,
@@ -95,10 +96,10 @@ class _CreateWorkspaceState extends State<CreateWorkspace> with Service {
                         context,
                         name: nameController.text,
                         description: descriptionController.text,
-                        visibility: dropdownValue!["type"] ?? "",
+                        visibility: dropdownValue!['type'] ?? '',
                       );
                     },
-                    child: const Text("Create"),
+                    child: const Text('Create'),
                   ),
                 ),
               )

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../../signtotrello/domain/sign_arguments.dart';
-import '../../../signtotrello/presentation/index.dart';
-import '../../../utils/color.dart';
-import '../../../utils/config.dart';
+import 'package:trelloappclone_flutter/features/signtotrello/domain/sign_arguments.dart';
+import 'package:trelloappclone_flutter/features/signtotrello/presentation/index.dart';
+import 'package:trelloappclone_flutter/utils/color.dart';
+import 'package:trelloappclone_flutter/utils/config.dart';
 
 class LandingBottomSheet extends StatelessWidget {
+  const LandingBottomSheet({required this.type, super.key});
   final Enum type;
-  const LandingBottomSheet({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,8 @@ class LandingBottomSheet extends StatelessWidget {
             ),
             title: Text(
               (type == Sign.signUp)
-                  ? " SIGN UP WITH EMAIL"
-                  : "LOG IN WITH EMAIL",
+                  ? ' SIGN UP WITH EMAIL'
+                  : 'LOG IN WITH EMAIL',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -44,8 +44,8 @@ class LandingBottomSheet extends StatelessWidget {
             ),
             title: Text(
               (type == Sign.signUp)
-                  ? " SIGN UP WITH GOOGLE"
-                  : "LOG IN WITH GOOGLE",
+                  ? ' SIGN UP WITH GOOGLE'
+                  : 'LOG IN WITH GOOGLE',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -57,8 +57,8 @@ class LandingBottomSheet extends StatelessWidget {
             ),
             title: Text(
               (type == Sign.signUp)
-                  ? " SIGN UP WITH MICROSOFT"
-                  : "LOG IN WITH MICROSOFT",
+                  ? ' SIGN UP WITH MICROSOFT'
+                  : 'LOG IN WITH MICROSOFT',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -70,8 +70,8 @@ class LandingBottomSheet extends StatelessWidget {
             ),
             title: Text(
               (type == Sign.signUp)
-                  ? " SIGN UP WITH APPLE"
-                  : "LOG IN WITH APPLE",
+                  ? ' SIGN UP WITH APPLE'
+                  : 'LOG IN WITH APPLE',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           )

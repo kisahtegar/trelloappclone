@@ -3,8 +3,8 @@ import 'package:trelloappclone_flutter/utils/color.dart';
 
 /// Square color
 class ColorSquare extends StatefulWidget {
-  final String bckgrd;
   const ColorSquare({required this.bckgrd, super.key});
+  final String bckgrd;
 
   @override
   State<ColorSquare> createState() => _ColorSquareState();
@@ -14,13 +14,13 @@ class _ColorSquareState extends State<ColorSquare> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40.0,
-      width: 40.0,
+      height: 40,
+      width: 40,
       decoration: BoxDecoration(
         color: Color(
           int.parse(widget.bckgrd.substring(1, 7), radix: 16) + 0xFF000000,
         ),
-        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
       ),
     );
   }
@@ -37,12 +37,12 @@ class _BlueRectangleState extends State<BlueRectangle> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
-      width: 300.0,
+      height: 100,
+      width: 300,
       decoration: const BoxDecoration(
         color: brandColor,
         borderRadius: BorderRadius.all(
-          Radius.circular(5.0),
+          Radius.circular(5),
         ),
       ),
     );

@@ -1,7 +1,7 @@
 class BoardItemObject {
-  String? title;
 
   BoardItemObject({this.title}) {
-    title ??= "";
+    title ??= '';
   }
+  String? title;
 }
